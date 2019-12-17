@@ -18,3 +18,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/photos', 'PhotoController@index');
+Route::get('/admin/photo/create', 'PhotoController@create');
+Route::get('/admin/photo/show', 'PhotoController@show');
+Route::get('/admin/photo/edit/{id}', 'PhotoController@edit');
+Route::post('/admin/photo/store', 'PhotoController@store');
+Route::patch('admin/photo/update', 'PhotoController@update');
+Route::delete('/admin/photo/delete/{id}', 'PhotoController@destroy');
+
