@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Image;
 use App\Photo;
 
@@ -20,7 +21,10 @@ class Photocontroller extends Controller
      */
     public function index()
     {
-        $photos = Photo::all();
+        $photos_unsort = Photo::all();
+        $photos = array_values(Arr::sort($photos_unsort, function($value){
+            return $value['position'];
+        }));
         return view('photos', compact('photos'));
     }
 
@@ -113,9 +117,18 @@ class Photocontroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        {
+            $photo = Photo::find($request->id);
+            $photo->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                'visible' => $request->visible,
+                'position' => $request->position
+                ]);
+            return redirect('/admin/photo/show');
+        }
     }
 
     /**
@@ -126,6 +139,10 @@ class Photocontroller extends Controller
      */
     public function destroy($id)
     {
-        //
+        $photo = Photo::find($id);
+        unlink("storage/thumbnail/". basename($photo->thumbnail_url));
+        $photo->delete(); 
+
+        return redirect('/admin/photo/show');
     }
 }

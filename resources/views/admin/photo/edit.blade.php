@@ -31,6 +31,7 @@
 
                     <input type="textarea" class="form-control" name="description" value="{{$photo->description}}"/> 
                     <input type="number" class="form-control" name="site" value="{{$photo->site}}"/> 
+                    <input type="number" class="form-control" name="position" value="{{$photo->position}}"/> 
 
                     
                     <input type="submit" class="btn btn-primary" />

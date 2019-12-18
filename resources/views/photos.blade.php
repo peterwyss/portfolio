@@ -23,10 +23,10 @@
                 @endforeach
                 </div>
                 <div id="lightbox" class="modal fade " role="dialog" tabindex="-1">
-                    <div class="modal-dialog modal-lg " >
+                    <div class="modal-dialog modal-dialog-centered modal-xl " >
                         <div class="modal-content">
                             <div class="modal-body ">
-                            <div  id="my-car" class="carousel slide "  data-ride="carousel">
+                            <div  id="my-car" class="carousel slide "  data-ride="carousel" data-interval="false">
                   
                               <ol class="carousel-indicators" >
                                 @foreach ($photos as $photo)
@@ -47,11 +47,12 @@
                                             <div class="carousel-item {{$loop->first ? 'active' : ''}}">
                                         
                                                 <img src="{{asset('storage'.$photo->photo_url)}}" class="d-block w-100" alt="{{$photo->title}}" />
-                                                <div class="carousel-caption" >
-                                                    <h4>{{$photo->title}}</h4>
+                                                <div class="carousel-caption d-none d-md-block  mb-4" >
                                                     <p>{{$photo->description}}</p>
                                                 </div>
                                             </div> <!-- item -->
+
+
                                     @endif        
                                     @endforeach
                                 </div> <!-- carousel-inner -->
