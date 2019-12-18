@@ -141,6 +141,8 @@ class Photocontroller extends Controller
     {
         $photo = Photo::find($id);
         unlink("storage/thumbnail/". basename($photo->thumbnail_url));
+        unlink("storage/slider/". basename($photo->photo_url));
+
         $photo->delete(); 
 
         return redirect('/admin/photo/show');
