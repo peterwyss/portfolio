@@ -26,3 +26,7 @@ Route::post('/admin/photo/store', 'PhotoController@store');
 Route::patch('admin/photo/update', 'PhotoController@update');
 Route::delete('/admin/photo/delete/{id}', 'PhotoController@destroy');
 
+Route::get('/admin/video/create/{page}', 'VideoController@create');
+Route::post('/admin/video/store', 'VideoController@store');
+
+
