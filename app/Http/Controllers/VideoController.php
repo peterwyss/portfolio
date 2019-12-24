@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Vimeo;
 use App\Video;
 
@@ -32,31 +33,19 @@ class VideoController extends Controller
         $data = $response['body']['data'];
         $video_list = [];
          foreach($data as $i=>$vid){
+            $video_id = substr($vid['uri'],strrpos($vid['uri'],"/")+1);
 
              $item = array(
-                 "uri" => $vid['uri'],
+                 
                  "name" => $vid['name'],
+                 "video_id" => $video_id,
                  "description" => $vid['description'],
-                 "id" => "",
-                 "exist" => false,
+                 "visible" => false,
+                 "position" => 1,
+                 "page" => 1,
                  "pictures" => $vid['pictures'],
-                 "link" => $vid['link']
              );
-
-
-            $id = substr($vid['uri'],strrpos($vid['uri'],"/")+1);
-            $video_exist = Video::where('video_id', $id)->get();
-            $response['body']['data'][$i]['exist'] =  'false';
-            if(count($video_exist) > 0){
-                $response['body']['data'][$i]['exist'] =  'true';
-                $response['body']['data'][$i]['database_id'] =  $video_exist[0]->id;
-                $database_id = $video_exist[0]->id;
-
-                $item['id'] = $video_exist[0]->id;
-                $item['exist'] = true;
-
-
-            }    
+                
             array_push($video_list,$item);
             
         }
@@ -72,9 +61,10 @@ class VideoController extends Controller
      */
     public function store(Request $request)
     {
+        Log::info('Request: ' . $request);
         $video = new Video();
-        $video->name = request('title');
-        $video->video_id = request('videoId');
+        $video->name = request('name');
+        $video->video_id = request('video_id');
         $video->description = request('description');
         $video->visible = request('visible');
         $video->position = request('position');
@@ -82,10 +72,14 @@ class VideoController extends Controller
         $video->picture = request('picture');
         $video->save();
 
+        /*
         return redirect()->action(
             'VideoController@create', ['page' => 1]
         )->with('status', 'Gespeichert');
-
+        */
+        return response()->json([
+            'message' => 'Video gespeichert!'
+        ],200);
     }
 
     /**
