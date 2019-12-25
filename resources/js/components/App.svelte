@@ -36,7 +36,8 @@
 		});
 		//const data = await response.json();
 		console.log(response.data.database_id);
-		var newElement = document.createElement('p');
+		var newElement = document.createElement('button');
+		newElement.className = "btn btn-success";
 		let text = document.createTextNode(response.data.database_id);
 		newElement.appendChild(text);
 		var insertElement = document.getElementById(response.data.video_id);
@@ -64,7 +65,7 @@
 						<div id={item.video_id}>
 						{#if item.exist.length > 0}
 						  {#each item.exist as itemExist}
-						    <p>{itemExist.id}</p>
+						    <button id="{itemExist.id}"  class="btn btn-success">{itemExist.id}</button>
 						  {/each}
 						{/if}
 						</div>

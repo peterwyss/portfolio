@@ -38806,7 +38806,7 @@ function get_each_context(ctx, list, i) {
 	return child_ctx;
 }
 
-// (65:6) {#if item.exist.length > 0}
+// (66:6) {#if item.exist.length > 0}
 function create_if_block(ctx) {
 	let each_1_anchor;
 	let each_value_1 = /*item*/ ctx[2].exist;
@@ -38862,29 +38862,32 @@ function create_if_block(ctx) {
 	};
 }
 
-// (66:8) {#each item.exist as itemExist}
+// (67:8) {#each item.exist as itemExist}
 function create_each_block_1(ctx) {
-	let p;
+	let button;
 	let t_value = /*itemExist*/ ctx[5].id + "";
 	let t;
+	let button_id_value;
 
 	return {
 		c() {
-			p = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("p");
+			button = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("button");
 			t = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])(t_value);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "id", button_id_value = /*itemExist*/ ctx[5].id);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "class", "btn btn-success");
 		},
 		m(target, anchor) {
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, p, anchor);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(p, t);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, button, anchor);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(button, t);
 		},
 		p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
 		d(detaching) {
-			if (detaching) Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(p);
+			if (detaching) Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(button);
 		}
 	};
 }
 
-// (58:6) {#each videoList as item, i }
+// (59:6) {#each videoList as item, i }
 function create_each_block(ctx) {
 	let form;
 	let input;
@@ -39080,7 +39083,8 @@ function instance($$self) {
 		});
 
 		console.log(response.data.database_id);
-		var newElement = document.createElement("p");
+		var newElement = document.createElement("button");
+		newElement.className = "btn btn-success";
 		let text = document.createTextNode(response.data.database_id);
 		newElement.appendChild(text);
 		var insertElement = document.getElementById(response.data.video_id);
