@@ -13,14 +13,14 @@
 		console.log(e.target.index.value);
 		console.log(videoList[e.target.index.value]);
 		const i = e.target.index.value;
-		console.log(videoList[i].uri)
+		console.log(_TOKEN)
 		const response = await fetch("/admin/video/store",
 		{
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json',
-				'X-CSRF-TOKEN' : _TOKEN
+				'X-CSRF-TOKEN': _TOKEN
 			},
 			body: JSON.stringify({
 				'name' : videoList[i].name,

@@ -38962,7 +38962,7 @@ function instance($$self) {
 		console.log(e.target.index.value);
 		console.log(videoList[e.target.index.value]);
 		const i = e.target.index.value;
-		console.log(videoList[i].uri);
+		console.log(_TOKEN);
 
 		const response = await fetch("/admin/video/store", {
 			method: "POST",
