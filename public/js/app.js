@@ -38793,6 +38793,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+function get_each_context_1(ctx, list, i) {
+	const child_ctx = ctx.slice();
+	child_ctx[5] = list[i];
+	return child_ctx;
+}
+
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
 	child_ctx[2] = list[i];
@@ -38800,7 +38806,85 @@ function get_each_context(ctx, list, i) {
 	return child_ctx;
 }
 
-// (49:6) {#each videoList as item, i }
+// (65:6) {#if item.exist.length > 0}
+function create_if_block(ctx) {
+	let each_1_anchor;
+	let each_value_1 = /*item*/ ctx[2].exist;
+	let each_blocks = [];
+
+	for (let i = 0; i < each_value_1.length; i += 1) {
+		each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+	}
+
+	return {
+		c() {
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
+
+			each_1_anchor = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["empty"])();
+		},
+		m(target, anchor) {
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(target, anchor);
+			}
+
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, each_1_anchor, anchor);
+		},
+		p(ctx, dirty) {
+			if (dirty & /*videoList*/ 1) {
+				each_value_1 = /*item*/ ctx[2].exist;
+				let i;
+
+				for (i = 0; i < each_value_1.length; i += 1) {
+					const child_ctx = get_each_context_1(ctx, each_value_1, i);
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(child_ctx, dirty);
+					} else {
+						each_blocks[i] = create_each_block_1(child_ctx);
+						each_blocks[i].c();
+						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+					}
+				}
+
+				for (; i < each_blocks.length; i += 1) {
+					each_blocks[i].d(1);
+				}
+
+				each_blocks.length = each_value_1.length;
+			}
+		},
+		d(detaching) {
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["destroy_each"])(each_blocks, detaching);
+			if (detaching) Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(each_1_anchor);
+		}
+	};
+}
+
+// (66:8) {#each item.exist as itemExist}
+function create_each_block_1(ctx) {
+	let p;
+	let t_value = /*itemExist*/ ctx[5].id + "";
+	let t;
+
+	return {
+		c() {
+			p = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("p");
+			t = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])(t_value);
+		},
+		m(target, anchor) {
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, p, anchor);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(p, t);
+		},
+		p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+		d(detaching) {
+			if (detaching) Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(p);
+		}
+	};
+}
+
+// (58:6) {#each videoList as item, i }
 function create_each_block(ctx) {
 	let form;
 	let input;
@@ -38816,7 +38900,11 @@ function create_each_block(ctx) {
 	let t3;
 	let button;
 	let t5;
+	let div;
+	let div_id_value;
+	let t6;
 	let dispose;
+	let if_block = /*item*/ ctx[2].exist.length > 0 && create_if_block(ctx);
 
 	return {
 		c() {
@@ -38831,6 +38919,9 @@ function create_each_block(ctx) {
 			button = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("button");
 			button.textContent = "Import";
 			t5 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			div = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
+			if (if_block) if_block.c();
+			t6 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input, "type", "hidden");
 			input.value = input_value_value = /*i*/ ctx[4];
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input, "name", "index");
@@ -38838,6 +38929,7 @@ function create_each_block(ctx) {
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(img, "alt", img_alt_value = /*item*/ ctx[2].name);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "class", "btn btn-primary");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "type", "submit");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div, "id", div_id_value = /*item*/ ctx[2].video_id);
 			dispose = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(form, "submit", Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["prevent_default"])(/*handleClick*/ ctx[1]));
 		},
 		m(target, anchor) {
@@ -38851,10 +38943,16 @@ function create_each_block(ctx) {
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t3);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, button);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t5);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, div);
+			if (if_block) if_block.m(div, null);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t6);
 		},
-		p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+		p(ctx, dirty) {
+			if (/*item*/ ctx[2].exist.length > 0) if_block.p(ctx, dirty);
+		},
 		d(detaching) {
 			if (detaching) Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(form);
+			if (if_block) if_block.d();
 			dispose();
 		}
 	};
@@ -38949,6 +39047,8 @@ function create_fragment(ctx) {
 	};
 }
 
+let buttonAttr = "";
+
 function instance($$self) {
 	Object(svelte__WEBPACK_IMPORTED_MODULE_1__["onMount"])(() => {
 		console.log("the component has mounted");
@@ -38964,25 +39064,27 @@ function instance($$self) {
 		const i = e.target.index.value;
 		console.log(_TOKEN);
 
-		const response = await fetch("/admin/video/store", {
+		const response = await axios({
+			url: "/admin/video/store",
 			method: "POST",
-			headers: {
-				"Accept": "application/json",
-				"Content-Type": "application/json",
-				"X-CSRF-TOKEN": _TOKEN
-			},
-			body: JSON.stringify({
+			params: {
 				"name": videoList[i].name,
 				"video_id": videoList[i].video_id,
 				"description": videoList[i].description,
 				"visible": "false",
 				"position": 0,
 				"page": 0,
-				"picture": videoList[i].pictures.sizes[0].link
-			})
+				"picture": videoList[i].pictures.sizes[0].link,
+				"exist": videoList[i].exist
+			}
 		});
 
-		console.log(response);
+		console.log(response.data.database_id);
+		var newElement = document.createElement("p");
+		let text = document.createTextNode(response.data.database_id);
+		newElement.appendChild(text);
+		var insertElement = document.getElementById(response.data.video_id);
+		insertElement.appendChild(newElement);
 	}
 
 	

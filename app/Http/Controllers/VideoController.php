@@ -37,8 +37,16 @@ class VideoController extends Controller
         $response = $lib->request('/me/videos',['per_page' => 4,'page' => $page], 'GET');
         $data = $response['body']['data'];
         $video_list = [];
+        $exist_in_database = [];
          foreach($data as $i=>$vid){
             $video_id = substr($vid['uri'],strrpos($vid['uri'],"/")+1);
+
+            /* Video in der Datenbank suchen */
+            foreach (Video::where('video_id', $video_id)->cursor() as $video_in_database) {
+                Log::info("Video vorhanden: " . $video_in_database);
+                array_push($exist_in_database, $video_in_database);
+            }    
+
 
              $item = array(
                  
@@ -49,8 +57,9 @@ class VideoController extends Controller
                  "position" => 1,
                  "page" => 1,
                  "pictures" => $vid['pictures'],
+                 "exist" => $exist_in_database
              );
-                
+            $exist_in_database = [];    
             array_push($video_list,$item);
             
         }
@@ -83,7 +92,9 @@ class VideoController extends Controller
         )->with('status', 'Gespeichert');
         */
         return response()->json([
-            'message' => 'Video gespeichert!'
+            'message' => 'Video gespeichert!',
+            'database_id' => $video->id,
+            'video_id' => $video->video_id,
         ],200);
     }
 
