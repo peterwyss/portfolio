@@ -115,9 +115,11 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        $video_list = Video::all();
+        return view('/admin/video/edit', compact('video_list'));
+
     }
 
     /**

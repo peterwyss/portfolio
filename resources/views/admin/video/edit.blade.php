@@ -23,8 +23,8 @@
                       @if ($vimeo['exist'] == 'true')
                             <p>Visible</p>
                       @endif
-                      <img src="{{$vimeo['pictures']['sizes']['0']['link']}}" />
-                      <input type="hidden" name="picture" value="{{$vimeo['pictures']['sizes']['0']['link']}}" />
+                      <img src="{{$vimeo['picture']}}" />
+                      <input type="hidden" name="picture" value="{{$vimeo['picture']}}" />
 
                       <input type="hidden" name="database_id" value="{{$vimeo['id']}}" />
 
@@ -41,14 +41,7 @@
 
                 </form>
                 @endforeach
-                <p>  
-                @if ($response['body']['page'] > 1 )
-                    <a href="{{asset('/admin/video/create/' . ($response['body']['page'] -1) )}}">prev</a>
-                @endif                
-                @if ($response['body']['page'] * $response['body']['per_page'] < $response['body']['total'])
-                    <a href="{{asset('/admin/video/create/' . ($response['body']['page'] +1) )}}">next</a>
-                @endif
-                </p>
+
 
                 
             </div>

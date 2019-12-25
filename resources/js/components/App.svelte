@@ -36,12 +36,14 @@
 		});
 		//const data = await response.json();
 		console.log(response.data.database_id);
+		
 		var newElement = document.createElement('button');
 		newElement.className = "btn btn-success";
 		let text = document.createTextNode(response.data.database_id);
 		newElement.appendChild(text);
 		var insertElement = document.getElementById(response.data.video_id);
 		insertElement.appendChild(newElement);
+
 
 
 	};
