@@ -22,9 +22,8 @@
                 @endif                
                 @endforeach
                 </div>
-                <iframe src="https://player.vimeo.com/video/373183934" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
                 <div id="lightbox" class="modal fade " role="dialog" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered modal-xl " >
+                    <div class="modal-dialog modal-dialog-centered modal-lg" >
                         <div class="modal-content">
                             <div class="modal-body ">
                             <div  id="my-car" class="carousel slide "  data-ride="carousel" data-interval="false">
