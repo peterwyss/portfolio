@@ -118,7 +118,7 @@ class VideoController extends Controller
     public function edit()
     {
         $video_list = Video::all();
-        return view('/admin/video/edit', compact('video_list'));
+        return response($video_list);
 
     }
 
@@ -129,9 +129,16 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        Log::info("Request: " . $request);
+        $video = Video::find($request->id);
+        $video->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'position' => $request->position,
+            'page' => $request->page
+            ]);
     }
 
     /**

@@ -29,5 +29,6 @@ Route::delete('/admin/photo/delete/{id}', 'PhotoController@destroy');
 Route::get('/admin/video/create/{page}', 'VideoController@create');
 Route::post('/admin/video/store', 'VideoController@store');
 Route::get('/admin/video/edit/', 'VideoController@edit');
+Route::post('admin/video/update', 'VideoController@update');
 
 
