@@ -1,23 +1,44 @@
 <script>
+/*TODO
+*
+* Videoliste im Store holen und speichern
+* benötigt eine neue Funktion im VideoController
+*
+*
+*
+*
+*/
+
+
+import { tick } from 'svelte';
 
 let buttonAttr = ""; 
 	var videoList = video_list;
-	console.log("list " ,videoList);
+
+async function deleteItem(id){
+	console.log(id);
+	const response = await axios(
+		{
+			url: "/admin/video/delete",
+			method: 'POST',
+			params: {
+				'id' : id,
+			}
+		});
+	await tick();
+	videoList = video_list;	
+
+}
+
 
 	async function handleClick(e){
-		console.log(e.target.index.value);
-		console.log(videoList[e.target.index.value]);
 		const i = e.target.index.value;
-		console.log(_TOKEN)
+		console.log(videoList)
+		videoList[i].exist.push(i);
 		const response = await axios(
 		{
 			url: "/admin/video/store",
 			method: 'POST',
-			//headers: {
-			//	'Accept': 'application/json',
-			//	'Content-Type': 'application/json',
-			//	'X-CSRF-TOKEN': _TOKEN
-			//},
 			params: {
 				'name' : videoList[i].name,
 				'video_id': videoList[i].video_id,
@@ -38,9 +59,6 @@ let buttonAttr = "";
 		newElement.appendChild(text);
 		var insertElement = document.getElementById(response.data.video_id);
 		insertElement.appendChild(newElement);
-
-
-
 	};
 </script>    
 
@@ -61,7 +79,9 @@ let buttonAttr = "";
 						<div id={item.video_id}>
 						{#if item.exist.length > 0}
 						  {#each item.exist as itemExist}
-						    <button id="{itemExist.id}"  class="btn btn-success">{itemExist.id}</button>
+						    <button id="{itemExist.id}"  class="btn btn-success" 
+							on:click|preventDefault={() => deleteItem(itemExist.id)}>
+							{itemExist.id}</button>
 						  {/each}
 						{/if}
 						</div>

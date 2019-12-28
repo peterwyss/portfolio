@@ -4,6 +4,8 @@
 	import Edit from './Edit.svelte';
 	
 	onMount(() => {
+
+	
 	  console.log("the component has mounted");
 	  console.log(_TOKEN);
 	});

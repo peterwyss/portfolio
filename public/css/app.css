@@ -7104,8 +7104,8 @@ a.close.disabled {
 .carousel-control-prev,
 .carousel-control-next {
   position: absolute;
-  top: 20%;
-  bottom: 50%;
+  top: 0;
+  bottom: 0;
   z-index: 1;
   display: -webkit-box;
   display: flex;

@@ -150,8 +150,10 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        Log::info("Delete Id: " . $request);
+        $video = Video::find($request->id);
+        $video->delete();
     }
 }
