@@ -33,8 +33,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                    <li class="nav-item {{ (request()->is('photos')) ? 'active' : '' }}"><a class="nav-link" href="{{ route('photos')}}">Fotos</a> 
+                    <li class="nav-item {{ (request()->is('videos/1')) ? 'active' : '' }}"><a class="nav-link" href="../videos/1">Videos</a> 
+                    <li class="nav-item {{ (request()->is('videos/2')) ? 'active' : '' }}"><a class="nav-link" href="../videos/2">Auftragsarbeiten</a> 
 
-                    </ul>
+                </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">

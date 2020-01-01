@@ -19,12 +19,21 @@ class VideoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($page)
     {
         $videos = Video::all();
-    
-        return view('videos', compact('videos'));
-
+        $page_one = $videos->filter( function($var){
+            return ($var['page'] == 1);
+        });
+        $page_two = $videos->filter( function($var){
+            return ($var['page'] == 2);
+        });
+        Log::info($page_one);
+        if($page == 1){ 
+            return view('videos', compact('page_one'));
+        }elseif($page == 2){
+            return view('videos2', compact('page_two'));
+        }        
     }
 
     /**

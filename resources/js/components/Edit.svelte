@@ -37,7 +37,27 @@ async function saveChange(item){
 		});
 
 }
+async function deleteItem(item){
+    console.log(item);
+		const response = await axios(
+		{
+			url: "/admin/video/delete",
+			method: 'POST',
+			//headers: {
+			//	'Accept': 'application/json',
+			//	'Content-Type': 'application/json',
+			//	'X-CSRF-TOKEN': _TOKEN
+			//},
+			params: {
+                'id' : item.id,
+				'name' : item.name,
+				'description':	item.description,
+				'position' : item.position,
+				'page' : item.page,
+			}
+		});
 
+}
 </script>
 
 <div>
@@ -51,6 +71,8 @@ async function saveChange(item){
 <input type="number" bind:value="{item.position}" />
 <input type="number" bind:value="{item.page}" /> 
 <button class="btn btn-primary" on:click|preventDefault={() => saveChange(item)}>Save</button> 
+<button class="btn btn-primary" on:click|preventDefault={() => deleteItem(item)}>Delete</button> 
+
 </form>
 </div>
 </div>

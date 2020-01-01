@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/photos', 'PhotoController@index');
+Route::get('/photos', 'PhotoController@index')->name('photos');
 Route::get('/admin/photo/create', 'PhotoController@create');
 Route::get('/admin/photo/show', 'PhotoController@show');
 Route::get('/admin/photo/edit/{id}', 'PhotoController@edit');
@@ -30,7 +30,7 @@ Route::get('/admin/video/create/{page}', 'VideoController@create');
 Route::post('/admin/video/store', 'VideoController@store');
 Route::get('/admin/video/edit/', 'VideoController@edit');
 Route::post('admin/video/update', 'VideoController@update');
-Route::get('/videos', 'VideoController@index');
+Route::get('/videos/{page}', 'VideoController@index');
 Route::post('/admin/video/delete', 'VideoController@destroy');
 
 
