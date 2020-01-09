@@ -21,6 +21,7 @@ class VideoController extends Controller
      */
     public function index($page)
     {
+        
         $videos = Video::all();
         $page_one = $videos->filter( function($var){
             return ($var['page'] == 1);
