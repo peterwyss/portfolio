@@ -33,4 +33,11 @@ Route::post('admin/video/update', 'VideoController@update');
 Route::get('/videos/{page}', 'VideoController@index');
 Route::post('/admin/video/delete', 'VideoController@destroy');
 
+Route::get('/admin/config/create', 'ConfigController@create');
+Route::post('/admin/config/store', 'ConfigController@store');
+
+Route::get('mail', function(){
+    return view('mail');
+});
+
 
