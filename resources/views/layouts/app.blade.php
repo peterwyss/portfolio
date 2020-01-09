@@ -8,8 +8,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <h2 class="pl-2">{{config('app.sub-title')}}</h2>
-    {{dd(config('app.sub-title'))}}    
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
