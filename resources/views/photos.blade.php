@@ -17,7 +17,10 @@
                             </div>
                     @endif 
                                 <div data-toggle="modal" data-target="#lightbox">                       
-                                    <a href="#my-car" data-slide-to="{{$loop->index}}" ><img src="{{url($photo->thumbnail_url)}}" class="img-thumbnail" /></a> 
+                                    <a href="#my-car" data-slide-to="{{$loop->index}}" >
+                                        <img src="{{url($photo->thumbnail_url)}}" class="img-thumbnail" 
+                                        data-toggle="tooltip" data-placement="top" title="{{$photo->title}}"
+                                        /></a> 
                                 </div>
                 @endif                
                 @endforeach

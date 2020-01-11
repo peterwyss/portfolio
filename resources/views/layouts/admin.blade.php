@@ -35,6 +35,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                    <li class="nav-item {{ (request()->is('photos')) ? 'active' : '' }}"><a class="nav-link" href="{{ route('photo.create')}}">Fotos bearbeiten</a> 
+                    <li class="nav-item {{ (request()->is('photos')) ? 'active' : '' }}"><a class="nav-link" href="{{ route('photo.show')}}">Fotos</a> 
+                    <li class="nav-item {{ (request()->is('photos')) ? 'active' : '' }}"><a class="nav-link" href="{{ route('photos')}}">Konfiguration</a> 
 
                     </ul>
 
