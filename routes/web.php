@@ -19,8 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/photos', 'PhotoController@index')->name('photos');
-Route::get('/admin/photo/create', 'PhotoController@create');
-Route::get('/admin/photo/show', 'PhotoController@show');
+Route::get('/admin/photo/create', 'PhotoController@create')->name('photo.create');
+Route::get('/admin/photo/show', 'PhotoController@show')->name('photo.show');
 Route::get('/admin/photo/edit/{id}', 'PhotoController@edit');
 Route::post('/admin/photo/store', 'PhotoController@store');
 Route::patch('admin/photo/update', 'PhotoController@update');
