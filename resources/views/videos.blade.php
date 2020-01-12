@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+
+<script>var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+document.write(w);
+</script>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -24,7 +29,7 @@
                 </div>
                 <div id="lightbox" class="modal fade " role="dialog" tabindex="-1">
                     <div class="modal-dialog modal-dialog-centered modal-lg" >
-                        <div class="modal-content-video embed-responsive-16by9">
+                        <div class="modal-content-video ">
                             <div class="modal-body ">
                             <div  id="my-car" class="carousel slide "  data-ride="carousel" data-interval="false">
                   
@@ -46,8 +51,8 @@
 
                                             <div class="carousel-item {{$loop->first ? 'active' : ''}}">
                                         
-                                                <iframe src="https://player.vimeo.com/video/{{$video->video_id}}"
-                                                     width="640" height="360" frameborder="0"  allow="autoplay; 
+                                                <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/{{$video->video_id}}"
+                                                      frameborder="0"  allow="autoplay; 
                                                      fullscreen" allowfullscreen ></iframe>
                                                 <div class="carousel-caption d-none d-md-block  mb-4" >
                                                     <p>{{$video->description}} {{$video->video_id}}</p>
