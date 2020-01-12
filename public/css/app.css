@@ -11392,10 +11392,10 @@ a.text-dark:focus {
   outline: 0;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 480px) {
   .modal-lg,
   .modal-xl {
-    max-width: 700px;
+    width: 100% !important;
   }
 }
 
