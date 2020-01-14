@@ -44,7 +44,7 @@
                                     @foreach ($page_two as $video)
                                         @if ($video->page == 2)
 
-                                            <div class="carousel-item {{$loop->first ? 'active' : ''}}">
+                                            <div class="carousel-item {{$loop->first ? 'active' : ''}} responsive-video">
                                         
                                                 <iframe src="https://player.vimeo.com/video/{{$video->video_id}}"
                                                      width="640" height="360" frameborder="0"  allow="autoplay; 

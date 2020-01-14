@@ -29,7 +29,7 @@ document.write(w);
                 </div>
                 <div id="lightbox" class="modal fade " role="dialog" tabindex="-1">
                     <div class="modal-dialog modal-dialog-centered modal-lg" >
-                        <div class="modal-content-video ">
+                        <div class="modal-content-video">
                             <div class="modal-body ">
                             <div  id="my-car" class="carousel slide "  data-ride="carousel" data-interval="false">
                   
@@ -49,9 +49,9 @@ document.write(w);
                                     @foreach ($page_one as $video)
                                     @if ($video->page == 1)
 
-                                            <div class="carousel-item {{$loop->first ? 'active' : ''}}">
+                                            <div class="carousel-item {{$loop->first ? 'active' : ''}} responsive-video">
                                         
-                                                <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/{{$video->video_id}}"
+                                                <iframe src="https://player.vimeo.com/video/{{$video->video_id}}"
                                                       frameborder="0"  allow="autoplay; 
                                                      fullscreen" allowfullscreen ></iframe>
                                                 <div class="carousel-caption d-none d-md-block  mb-4" >
