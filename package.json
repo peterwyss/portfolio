@@ -24,5 +24,8 @@
         "svelte": "^3.16.6",
         "svelte-loader": "^2.13.4",
         "vue-template-compiler": "^2.6.11"
+    },
+    "dependencies": {
+        "tinymce": "^5.1.5"
     }
 }

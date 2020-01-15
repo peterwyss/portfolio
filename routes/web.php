@@ -36,8 +36,8 @@ Route::post('/admin/video/delete', 'VideoController@destroy');
 Route::get('/admin/config/create', 'ConfigController@create');
 Route::post('/admin/config/store', 'ConfigController@store');
 
-Route::get('mail', function(){
-    return view('mail');
+Route::get('/admin/about/about', function () {
+    return view('/admin/about/about');
 });
 
 
