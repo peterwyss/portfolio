@@ -140,9 +140,12 @@ class Photocontroller extends Controller
     public function destroy($id)
     {
         $photo = Photo::find($id);
-        unlink("storage/thumbnail/". basename($photo->thumbnail_url));
-        unlink("storage/slider/". basename($photo->photo_url));
-
+        if(file_exists(basename($photo->thumpnail_url))){
+            unlink("storage/thumbnail/". basename($photo->thumbnail_url));
+        }
+        if(file_exists(basename($photo->photo_url))){
+            unlink("storage/slider/". basename($photo->photo_url));
+        }    
         $photo->delete(); 
 
         return redirect('/admin/photo/show');
