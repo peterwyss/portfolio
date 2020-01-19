@@ -11,7 +11,8 @@
 
                 <form  method="POST" action="/admin/about/store" enctype="multipart/form-data">
                     @csrf    
-                <textarea class="description" name="description"></textarea>
+                <textarea class="description" name="content">{!!$about[0]->content!!}</textarea>
+                <input type="hidden" name='name' value="about" >
                 <button type="submit" class="btn btn-primary">Submit</button>    
                 </form>
 

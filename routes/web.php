@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Controllers\AboutController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -36,8 +38,8 @@ Route::post('/admin/video/delete', 'VideoController@destroy');
 Route::get('/admin/config/create', 'ConfigController@create');
 Route::post('/admin/config/store', 'ConfigController@store');
 
-Route::get('/admin/about/about', function () {
-    return view('/admin/about/about');
-});
+Route::get('/admin/about/about', 'AboutController@create')->name('admin.about.about');
+Route::post('/admin/about/store', 'AboutController@store');
+Route::get('/about', 'AboutController@index');
 
 

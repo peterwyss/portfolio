@@ -36,6 +36,7 @@
                     <li class="nav-item {{ (request()->is('photos')) ? 'active' : '' }}"><a class="nav-link" href="{{ route('photos')}}">Fotos</a> 
                     <li class="nav-item {{ (request()->is('videos/1')) ? 'active' : '' }}"><a class="nav-link" href="../videos/1">Videos</a> 
                     <li class="nav-item {{ (request()->is('videos/2')) ? 'active' : '' }}"><a class="nav-link" href="../videos/2">Auftragsarbeiten</a> 
+                    <li class="nav-item {{ (request()->is('about')) ? 'active' : '' }}"><a class="nav-link" href="../about">Über mich</a> 
 
                 </ul>
 
