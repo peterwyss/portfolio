@@ -22,8 +22,9 @@
         selector:'textarea.description',
         width: 600,
         height: 300,
-        plugins: 'image imagetools',
-        toolbar: 'image ',
+        plugins: ['image imagetools,hr, bbcode, link, code'],
+        bbcode_dialect: 'punbb',
+        toolbar: 'undo redo | formatselect | image | link | code',
         file_picker_types: 'file image media',
         file_picker_callback: function (cb, value, meta) {
     var input = document.createElement('input');
