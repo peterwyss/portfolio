@@ -28,14 +28,14 @@ Route::post('/admin/photo/store', 'PhotoController@store');
 Route::patch('admin/photo/update', 'PhotoController@update');
 Route::delete('/admin/photo/delete/{id}', 'PhotoController@destroy');
 
-Route::get('/admin/video/create/{page}', 'VideoController@create');
+Route::get('/admin/video/create/{page}', 'VideoController@create')->name('admin.video.create');
 Route::post('/admin/video/store', 'VideoController@store');
-Route::get('/admin/video/edit/', 'VideoController@edit');
+Route::get('/admin/video/edit/', 'VideoController@edit')->name('admin.video.edit');
 Route::post('admin/video/update', 'VideoController@update');
 Route::get('/videos/{page}', 'VideoController@index');
 Route::post('/admin/video/delete', 'VideoController@destroy');
 
-Route::get('/admin/config/create', 'ConfigController@create');
+Route::get('/admin/config/create', 'ConfigController@create')->name('admin.config.create');
 Route::post('/admin/config/store', 'ConfigController@store');
 
 Route::get('/admin/about/about', 'AboutController@create')->name('admin.about.about');
