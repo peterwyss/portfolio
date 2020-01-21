@@ -62,8 +62,10 @@
 
     input.click();
   }
-       
+     
     });
+    tinyMCE.activeEditor.setContent("test");  
+
 </script> 
 
                 </div>
