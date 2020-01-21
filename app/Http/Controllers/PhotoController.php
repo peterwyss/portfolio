@@ -70,6 +70,7 @@ class Photocontroller extends Controller
          $th = Image::make(storage_path('app/public/thumbnail/')
          .$thumbnail)->fit(config('photo.thumbnail_width'), config('photo.thumbnail_height'), null, 'top')->encode('jpg'); 
          $sl->orientate();   
+         $th->orientate();
          $sl->save();
          $th->save();
          $photo = new Photo();
