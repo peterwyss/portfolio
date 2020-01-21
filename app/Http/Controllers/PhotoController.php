@@ -69,7 +69,7 @@ class Photocontroller extends Controller
          .$slide)->fit(config('photo.image_width'), config('photo.image_height'), null, 'top')->encode('jpg'); 
          $th = Image::make(storage_path('app/public/thumbnail/')
          .$thumbnail)->fit(config('photo.thumbnail_width'), config('photo.thumbnail_height'), null, 'top')->encode('jpg'); 
-
+         $sl->orientate();   
          $sl->save();
          $th->save();
          $photo = new Photo();

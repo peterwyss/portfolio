@@ -10,8 +10,7 @@
 
 
                 <div class="card-body">
-                <img src="{{asset('storage/thump/'.$photo->name.'_thump.jpg') }}" 
-                      alt="{{$photo->titel}}"  />
+     
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}

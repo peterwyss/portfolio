@@ -65,7 +65,6 @@
      
     });
     tinyMCE.activeEditor.setContent("test");  
-
 </script> 
 
                 </div>
