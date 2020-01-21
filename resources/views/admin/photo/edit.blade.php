@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container">
@@ -26,8 +26,11 @@
                    <input type="hidden" name="id" class="form-controll" value="{{$photo->id}}" />
 
                     <input type="hidden" name="visible" class="form-controll" value="false" />
-                    
+                    @if ($photo->visible == 'true')
+                        <input type="checkbox" name="visible" class="form-controll" value="true" checked/>
+                    @else
                     <input type="checkbox" name="visible" class="form-controll" value="true" />
+                    @endif
 
                     <input type="textarea" class="form-control" name="description" value="{{$photo->description}}"/> 
                     <input type="number" class="form-control" name="site" value="{{$photo->site}}"/> 

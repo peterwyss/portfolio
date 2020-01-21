@@ -2,7 +2,6 @@
 
 @section('content')
 
-<script src="{{ asset('js/app.js') }}" defer></script>
 <script>
     var video_list = @json($video_list);
     let _TOKEN = "{{ csrf_token() }}";
