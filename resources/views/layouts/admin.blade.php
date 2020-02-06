@@ -39,6 +39,7 @@
                     <li class="nav-item {{ (request()->is('photos')) ? 'active' : '' }}"><a class="nav-link" href="{{ route('photo.show')}}">Fotos bearbeiten</a> 
                     <li class="nav-item {{ (request()->is('photos')) ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.config.create')}}">Konfiguration</a> 
                     <li class="nav-item {{ (request()->is('photos')) ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.video.create',1)}}">Videos bearbeiten</a> 
+                    <li class="nav-item {{ (request()->is('photos')) ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.about.about')}}">About bearbeiten</a> 
 
                     </ul>
 

@@ -12,3 +12,4 @@ npm-debug.log
 yarn-error.log
 dokumentation.txt
 /public/node_modules
+database.sqlite
