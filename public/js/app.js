@@ -38960,7 +38960,7 @@ function create_fragment(ctx) {
 }
 
 function instance($$self, $$props, $$invalidate) {
-	var page = "";
+	var page = "import";
 
 	Object(svelte__WEBPACK_IMPORTED_MODULE_1__["onMount"])(() => {
 		console.log("the component has mounted");
@@ -39559,7 +39559,6 @@ function create_fragment(ctx) {
 	let div0;
 	let t1;
 	let div1;
-	let t2;
 	let each_value = /*videoList*/ ctx[0];
 	let each_blocks = [];
 
@@ -39575,10 +39574,9 @@ function create_fragment(ctx) {
 			div3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
 			div2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
 			div0 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
-			div0.textContent = "Example Component";
+			div0.textContent = "Import Video";
 			t1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			div1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
-			t2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("I'm an example component.\n\t\t\t\t\t\t");
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
@@ -39600,7 +39598,6 @@ function create_fragment(ctx) {
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div2, div0);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div2, t1);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div2, div1);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div1, t2);
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].m(div1, null);

@@ -3,7 +3,7 @@
 	import Import from './Import.svelte';
 	import Edit from './Edit.svelte';
 	
-    var page = "";
+    var page = "import";
 
 	onMount(() => {
 

@@ -40,7 +40,7 @@ class ConfigController extends Controller
     {
         Setting::where('name', 'name')->update(['value' => request('name')]);
         Setting::where('name', 'sub-title')->update(['value' => request('sub-title')]);
-        Setting::where('name', 'debut')->update(['value' => request('debug')]);
+        Setting::where('name', 'debug')->update(['value' => request('debug')]);
         Setting::where('name','appToken')->update(['value' => request('appToken')]);
         Setting::where('name','clientId')->update(['value' => request('clientId')]);
         Setting::where('name','clientSecret')->update(['value' => request('clientSecret')]);
