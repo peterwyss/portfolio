@@ -1,16 +1,14 @@
 <script>
 /*TODO
 *
-* Videoliste im Store holen und speichern
-* benötigt eine neue Funktion im VideoController
-*
+* Buttonelement entfernen
+* removeChild(child) child = button
 *
 *
 *
 */
 
 
-import { tick } from 'svelte';
 
 let buttonAttr = ""; 
 	var videoList = video_list;
@@ -25,14 +23,12 @@ async function deleteItem(id){
 				'id' : id,
 			}
 		});
-	await tick();
-	videoList = video_list;	
-
+		videoList = video_list;
 }
 
-
-	async function handleClick(e){
-		const i = e.target.index.value;
+	// Video in der Datenbank speichern (importieren)
+	async function handleClick(i){
+		
 		console.log(videoList)
 		videoList[i].exist.push(i);
 		const response = await axios(
@@ -71,11 +67,12 @@ async function deleteItem(id){
 					<div class="card-body">
 					
 						{#each videoList as item, i }
-						<form on:submit|preventDefault={handleClick}>
+						<form >
 						<input type="hidden" value="{i}" name="index" />
 						<p>{item.name}</p>
 						<img src={item.pictures.sizes[0].link} alt={item.name}/>
-						<button  class="btn btn-primary" type="submit" >Import</button>	
+						<button  class="btn btn-primary" type="submit"
+						on:click|preventDefault={() =>handleClick(i)}>Import</button>	
 						<div id={item.video_id}>
 						{#if item.exist.length > 0}
 						  {#each item.exist as itemExist}
