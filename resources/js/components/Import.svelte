@@ -1,6 +1,7 @@
 <script>
 import {onMount} from 'svelte';
-import {vList} from './stores.js'
+import {vList} from './stores.js';
+import {testStore} from './stores.js';
 
 /*TODO
 *
@@ -10,15 +11,18 @@ import {vList} from './stores.js'
 *
 *
 */
-
-
-
-//let buttonAttr = ""; 
 var videoList = [];
 var videoPage = 1;
 var p = 0;
 var per_page = 0;
 var total = 0;
+
+// T E S T
+console.log("1. Store: ",testStore);
+testStore.update(n => [{'test':123 }]);
+console.log("2. Store: ",$testStore);
+
+////////////////
 
 onMount( () => {
 	getVideos(videoPage);
@@ -26,20 +30,20 @@ onMount( () => {
 
 
 async function getVideos(vp){
-	console.log("VP: " , vp);
 	const response = await axios(
      {
          url: '/admin/video/create/' +vp,
          method: 'GET'
      }
  )
-  console.log("Response: " ,response);
   videoList = response.data.list;
   p = response.data.response.body.page;
   per_page = response.data.response.body.page;
   total = response.data.response.body.total;
   videoPage = vp;
   console.log(videoList); 
+  vList.update(array => videoList);
+
 }
 
 
@@ -58,9 +62,9 @@ async function deleteItem(id){
 
 	// Video in der Datenbank speichern (importieren)
 	async function handleClick(i){
-		
-		console.log(videoList)
-		videoList[i].exist.push(i);
+		console.log("i ",i);
+		//videoList[i].exist.push(i);
+
 		const response = await axios(
 		{
 			url: "/admin/video/store",
@@ -77,14 +81,16 @@ async function deleteItem(id){
 			}
 		});
 		//const data = await response.json();
+		getVideos(videoPage);
 		console.log(response.data.database_id);
+		console.log('videoList: ',videoList);
 
-		var newElement = document.createElement('button');
-		newElement.className = "btn btn-success";
-		let text = document.createTextNode(response.data.database_id);
-		newElement.appendChild(text);
-		var insertElement = document.getElementById(response.data.video_id);
-		insertElement.appendChild(newElement);
+		//var newElement = document.createElement('button');
+		//newElement.className = "btn btn-success";
+		//let text = document.createTextNode(response.data.database_id);
+		//newElement.appendChild(text);
+		//var insertElement = document.getElementById(response.data.video_id);
+		//insertElement.appendChild(newElement);
 	};
 </script>    
 
@@ -102,8 +108,8 @@ async function deleteItem(id){
 					{#if videoPage * per_page < total}
 					  <button class="btn btn-primary" on:click|preventDefault={() => getVideos(videoPage +1 )} >next</button>
 					{/if}
-					
-						{#each videoList as item, i }
+
+						{#each $vList as item, i }
 						<form >
 						<input type="hidden" value="{i}" name="index" />
 						<p>{item.name}</p>
