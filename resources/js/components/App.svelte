@@ -16,9 +16,9 @@
 	}
 
 </script>
-<button on:click="{() => setPage('import')}">Import</button>
+<button class="btn btn-primary" on:click="{() => setPage('import')}">Import</button>
 
-<button on:click="{() => setPage('edit')}">Edit</button>
+<button class="btn btn-primary"  on:click="{() => setPage('edit')}">Edit</button>
 
 {#if page == "import"}
 <Import/>

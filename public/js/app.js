@@ -38641,6 +38641,132 @@ function loop_guard(timeout) {
 
 /***/ }),
 
+/***/ "./node_modules/svelte/store/index.mjs":
+/*!*********************************************!*\
+  !*** ./node_modules/svelte/store/index.mjs ***!
+  \*********************************************/
+/*! exports provided: get, derived, readable, writable */
+/***/ (function(__webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "derived", function() { return derived; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "readable", function() { return readable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "writable", function() { return writable; });
+/* harmony import */ var _internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../internal */ "./node_modules/svelte/internal/index.mjs");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "get", function() { return _internal__WEBPACK_IMPORTED_MODULE_0__["get_store_value"]; });
+
+
+
+
+const subscriber_queue = [];
+/**
+ * Creates a `Readable` store that allows reading by subscription.
+ * @param value initial value
+ * @param {StartStopNotifier}start start and stop notifications for subscriptions
+ */
+function readable(value, start) {
+    return {
+        subscribe: writable(value, start).subscribe,
+    };
+}
+/**
+ * Create a `Writable` store that allows both updating and reading by subscription.
+ * @param {*=}value initial value
+ * @param {StartStopNotifier=}start start and stop notifications for subscriptions
+ */
+function writable(value, start = _internal__WEBPACK_IMPORTED_MODULE_0__["noop"]) {
+    let stop;
+    const subscribers = [];
+    function set(new_value) {
+        if (Object(_internal__WEBPACK_IMPORTED_MODULE_0__["safe_not_equal"])(value, new_value)) {
+            value = new_value;
+            if (stop) { // store is ready
+                const run_queue = !subscriber_queue.length;
+                for (let i = 0; i < subscribers.length; i += 1) {
+                    const s = subscribers[i];
+                    s[1]();
+                    subscriber_queue.push(s, value);
+                }
+                if (run_queue) {
+                    for (let i = 0; i < subscriber_queue.length; i += 2) {
+                        subscriber_queue[i][0](subscriber_queue[i + 1]);
+                    }
+                    subscriber_queue.length = 0;
+                }
+            }
+        }
+    }
+    function update(fn) {
+        set(fn(value));
+    }
+    function subscribe(run, invalidate = _internal__WEBPACK_IMPORTED_MODULE_0__["noop"]) {
+        const subscriber = [run, invalidate];
+        subscribers.push(subscriber);
+        if (subscribers.length === 1) {
+            stop = start(set) || _internal__WEBPACK_IMPORTED_MODULE_0__["noop"];
+        }
+        run(value);
+        return () => {
+            const index = subscribers.indexOf(subscriber);
+            if (index !== -1) {
+                subscribers.splice(index, 1);
+            }
+            if (subscribers.length === 0) {
+                stop();
+                stop = null;
+            }
+        };
+    }
+    return { set, update, subscribe };
+}
+function derived(stores, fn, initial_value) {
+    const single = !Array.isArray(stores);
+    const stores_array = single
+        ? [stores]
+        : stores;
+    const auto = fn.length < 2;
+    return readable(initial_value, (set) => {
+        let inited = false;
+        const values = [];
+        let pending = 0;
+        let cleanup = _internal__WEBPACK_IMPORTED_MODULE_0__["noop"];
+        const sync = () => {
+            if (pending) {
+                return;
+            }
+            cleanup();
+            const result = fn(single ? values[0] : values, set);
+            if (auto) {
+                set(result);
+            }
+            else {
+                cleanup = Object(_internal__WEBPACK_IMPORTED_MODULE_0__["is_function"])(result) ? result : _internal__WEBPACK_IMPORTED_MODULE_0__["noop"];
+            }
+        };
+        const unsubscribers = stores_array.map((store, i) => store.subscribe((value) => {
+            values[i] = value;
+            pending &= ~(1 << i);
+            if (inited) {
+                sync();
+            }
+        }, () => {
+            pending |= (1 << i);
+        }));
+        inited = true;
+        sync();
+        return function stop() {
+            Object(_internal__WEBPACK_IMPORTED_MODULE_0__["run_all"])(unsubscribers);
+            cleanup();
+        };
+    });
+}
+
+
+
+
+/***/ }),
+
 /***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -38885,6 +39011,8 @@ function create_fragment(ctx) {
 			t3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			if (if_block) if_block.c();
 			if_block_anchor = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["empty"])();
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button0, "class", "btn btn-primary");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button1, "class", "btn btn-primary");
 
 			dispose = [
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(button0, "click", /*click_handler*/ ctx[2]),
@@ -39337,26 +39465,77 @@ class Edit extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__["SvelteComponent
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/internal/index.mjs");
+/* harmony import */ var svelte__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svelte */ "./node_modules/svelte/index.mjs");
+/* harmony import */ var _stores_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stores.js */ "./resources/js/components/stores.js");
 /* resources/js/components/Import.svelte generated by Svelte v3.16.6 */
+
+
+
 
 
 function get_each_context_1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[8] = list[i];
+	child_ctx[15] = list[i];
 	return child_ctx;
 }
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[5] = list[i];
-	child_ctx[7] = i;
+	child_ctx[12] = list[i];
+	child_ctx[14] = i;
 	return child_ctx;
 }
 
-// (78:6) {#if item.exist.length > 0}
+// (99:5) {#if videoPage > 1}
+function create_if_block_2(ctx) {
+	let button;
+	let dispose;
+
+	return {
+		c() {
+			button = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("button");
+			button.textContent = "prev";
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "class", "btn btn-primary");
+			dispose = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(button, "click", Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["prevent_default"])(/*click_handler*/ ctx[8]));
+		},
+		m(target, anchor) {
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, button, anchor);
+		},
+		p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+		d(detaching) {
+			if (detaching) Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(button);
+			dispose();
+		}
+	};
+}
+
+// (102:5) {#if videoPage * per_page < total}
+function create_if_block_1(ctx) {
+	let button;
+	let dispose;
+
+	return {
+		c() {
+			button = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("button");
+			button.textContent = "next";
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "class", "btn btn-primary");
+			dispose = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(button, "click", Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["prevent_default"])(/*click_handler_1*/ ctx[9]));
+		},
+		m(target, anchor) {
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, button, anchor);
+		},
+		p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+		d(detaching) {
+			if (detaching) Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(button);
+			dispose();
+		}
+	};
+}
+
+// (114:6) {#if item.exist.length > 0}
 function create_if_block(ctx) {
 	let each_1_anchor;
-	let each_value_1 = /*item*/ ctx[5].exist;
+	let each_value_1 = /*item*/ ctx[12].exist;
 	let each_blocks = [];
 
 	for (let i = 0; i < each_value_1.length; i += 1) {
@@ -39379,8 +39558,8 @@ function create_if_block(ctx) {
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, each_1_anchor, anchor);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*videoList, deleteItem*/ 3) {
-				each_value_1 = /*item*/ ctx[5].exist;
+			if (dirty & /*videoList, deleteItem*/ 33) {
+				each_value_1 = /*item*/ ctx[12].exist;
 				let i;
 
 				for (i = 0; i < each_value_1.length; i += 1) {
@@ -39409,25 +39588,25 @@ function create_if_block(ctx) {
 	};
 }
 
-// (79:8) {#each item.exist as itemExist}
+// (115:8) {#each item.exist as itemExist}
 function create_each_block_1(ctx) {
 	let button;
-	let t_value = /*itemExist*/ ctx[8].id + "";
+	let t_value = /*itemExist*/ ctx[15].id + "";
 	let t;
 	let button_id_value;
 	let dispose;
 
-	function click_handler_1(...args) {
-		return /*click_handler_1*/ ctx[4](/*itemExist*/ ctx[8], ...args);
+	function click_handler_3(...args) {
+		return /*click_handler_3*/ ctx[11](/*itemExist*/ ctx[15], ...args);
 	}
 
 	return {
 		c() {
 			button = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("button");
 			t = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])(t_value);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "id", button_id_value = /*itemExist*/ ctx[8].id);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "id", button_id_value = /*itemExist*/ ctx[15].id);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "class", "btn btn-success");
-			dispose = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(button, "click", Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["prevent_default"])(click_handler_1));
+			dispose = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(button, "click", Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["prevent_default"])(click_handler_3));
 		},
 		m(target, anchor) {
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, button, anchor);
@@ -39435,9 +39614,9 @@ function create_each_block_1(ctx) {
 		},
 		p(new_ctx, dirty) {
 			ctx = new_ctx;
-			if (dirty & /*videoList*/ 1 && t_value !== (t_value = /*itemExist*/ ctx[8].id + "")) Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["set_data"])(t, t_value);
+			if (dirty & /*videoList*/ 1 && t_value !== (t_value = /*itemExist*/ ctx[15].id + "")) Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["set_data"])(t, t_value);
 
-			if (dirty & /*videoList*/ 1 && button_id_value !== (button_id_value = /*itemExist*/ ctx[8].id)) {
+			if (dirty & /*videoList*/ 1 && button_id_value !== (button_id_value = /*itemExist*/ ctx[15].id)) {
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "id", button_id_value);
 			}
 		},
@@ -39448,14 +39627,14 @@ function create_each_block_1(ctx) {
 	};
 }
 
-// (70:6) {#each videoList as item, i }
+// (106:6) {#each videoList as item, i }
 function create_each_block(ctx) {
 	let form;
 	let input;
 	let input_value_value;
 	let t0;
-	let p;
-	let t1_value = /*item*/ ctx[5].name + "";
+	let p_1;
+	let t1_value = /*item*/ ctx[12].name + "";
 	let t1;
 	let t2;
 	let img;
@@ -39469,18 +39648,18 @@ function create_each_block(ctx) {
 	let t6;
 	let dispose;
 
-	function click_handler(...args) {
-		return /*click_handler*/ ctx[3](/*i*/ ctx[7], ...args);
+	function click_handler_2(...args) {
+		return /*click_handler_2*/ ctx[10](/*i*/ ctx[14], ...args);
 	}
 
-	let if_block = /*item*/ ctx[5].exist.length > 0 && create_if_block(ctx);
+	let if_block = /*item*/ ctx[12].exist.length > 0 && create_if_block(ctx);
 
 	return {
 		c() {
 			form = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("form");
 			input = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
 			t0 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
-			p = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("p");
+			p_1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("p");
 			t1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])(t1_value);
 			t2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			img = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("img");
@@ -39492,21 +39671,21 @@ function create_each_block(ctx) {
 			if (if_block) if_block.c();
 			t6 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input, "type", "hidden");
-			input.value = input_value_value = /*i*/ ctx[7];
+			input.value = input_value_value = /*i*/ ctx[14];
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input, "name", "index");
-			if (img.src !== (img_src_value = /*item*/ ctx[5].pictures.sizes[0].link)) Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(img, "src", img_src_value);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(img, "alt", img_alt_value = /*item*/ ctx[5].name);
+			if (img.src !== (img_src_value = /*item*/ ctx[12].pictures.sizes[0].link)) Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(img, "src", img_src_value);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(img, "alt", img_alt_value = /*item*/ ctx[12].name);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "class", "btn btn-primary");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button, "type", "submit");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div, "id", div_id_value = /*item*/ ctx[5].video_id);
-			dispose = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(button, "click", Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["prevent_default"])(click_handler));
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div, "id", div_id_value = /*item*/ ctx[12].video_id);
+			dispose = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(button, "click", Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["prevent_default"])(click_handler_2));
 		},
 		m(target, anchor) {
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, form, anchor);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, input);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t0);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, p);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(p, t1);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, p_1);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(p_1, t1);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t2);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, img);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t3);
@@ -39518,17 +39697,17 @@ function create_each_block(ctx) {
 		},
 		p(new_ctx, dirty) {
 			ctx = new_ctx;
-			if (dirty & /*videoList*/ 1 && t1_value !== (t1_value = /*item*/ ctx[5].name + "")) Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["set_data"])(t1, t1_value);
+			if (dirty & /*videoList*/ 1 && t1_value !== (t1_value = /*item*/ ctx[12].name + "")) Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["set_data"])(t1, t1_value);
 
-			if (dirty & /*videoList*/ 1 && img.src !== (img_src_value = /*item*/ ctx[5].pictures.sizes[0].link)) {
+			if (dirty & /*videoList*/ 1 && img.src !== (img_src_value = /*item*/ ctx[12].pictures.sizes[0].link)) {
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(img, "src", img_src_value);
 			}
 
-			if (dirty & /*videoList*/ 1 && img_alt_value !== (img_alt_value = /*item*/ ctx[5].name)) {
+			if (dirty & /*videoList*/ 1 && img_alt_value !== (img_alt_value = /*item*/ ctx[12].name)) {
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(img, "alt", img_alt_value);
 			}
 
-			if (/*item*/ ctx[5].exist.length > 0) {
+			if (/*item*/ ctx[12].exist.length > 0) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 				} else {
@@ -39541,7 +39720,7 @@ function create_each_block(ctx) {
 				if_block = null;
 			}
 
-			if (dirty & /*videoList*/ 1 && div_id_value !== (div_id_value = /*item*/ ctx[5].video_id)) {
+			if (dirty & /*videoList*/ 1 && div_id_value !== (div_id_value = /*item*/ ctx[12].video_id)) {
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div, "id", div_id_value);
 			}
 		},
@@ -39562,6 +39741,10 @@ function create_fragment(ctx) {
 	let div0;
 	let t1;
 	let div1;
+	let t2;
+	let t3;
+	let if_block0 = /*videoPage*/ ctx[1] > 1 && create_if_block_2(ctx);
+	let if_block1 = /*videoPage*/ ctx[1] * /*per_page*/ ctx[2] < /*total*/ ctx[3] && create_if_block_1(ctx);
 	let each_value = /*videoList*/ ctx[0];
 	let each_blocks = [];
 
@@ -39580,6 +39763,10 @@ function create_fragment(ctx) {
 			div0.textContent = "Import Video";
 			t1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			div1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
+			if (if_block0) if_block0.c();
+			t2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			if (if_block1) if_block1.c();
+			t3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
@@ -39601,13 +39788,43 @@ function create_fragment(ctx) {
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div2, div0);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div2, t1);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div2, div1);
+			if (if_block0) if_block0.m(div1, null);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div1, t2);
+			if (if_block1) if_block1.m(div1, null);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div1, t3);
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].m(div1, null);
 			}
 		},
 		p(ctx, [dirty]) {
-			if (dirty & /*videoList, deleteItem, handleClick*/ 7) {
+			if (/*videoPage*/ ctx[1] > 1) {
+				if (if_block0) {
+					if_block0.p(ctx, dirty);
+				} else {
+					if_block0 = create_if_block_2(ctx);
+					if_block0.c();
+					if_block0.m(div1, t2);
+				}
+			} else if (if_block0) {
+				if_block0.d(1);
+				if_block0 = null;
+			}
+
+			if (/*videoPage*/ ctx[1] * /*per_page*/ ctx[2] < /*total*/ ctx[3]) {
+				if (if_block1) {
+					if_block1.p(ctx, dirty);
+				} else {
+					if_block1 = create_if_block_1(ctx);
+					if_block1.c();
+					if_block1.m(div1, t3);
+				}
+			} else if (if_block1) {
+				if_block1.d(1);
+				if_block1 = null;
+			}
+
+			if (dirty & /*videoList, deleteItem, handleClick*/ 97) {
 				each_value = /*videoList*/ ctx[0];
 				let i;
 
@@ -39634,15 +39851,40 @@ function create_fragment(ctx) {
 		o: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
 		d(detaching) {
 			if (detaching) Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(main);
+			if (if_block0) if_block0.d();
+			if (if_block1) if_block1.d();
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["destroy_each"])(each_blocks, detaching);
 		}
 	};
 }
 
-let buttonAttr = "";
-
 function instance($$self, $$props, $$invalidate) {
-	var videoList = video_list;
+	var videoList = [];
+	var videoPage = 1;
+	var p = 0;
+	var per_page = 0;
+	var total = 0;
+
+	Object(svelte__WEBPACK_IMPORTED_MODULE_1__["onMount"])(() => {
+		getVideos(videoPage);
+	});
+
+	async function getVideos(vp) {
+		console.log("VP: ", vp);
+
+		const response = await axios({
+			url: "/admin/video/create/" + vp,
+			method: "GET"
+		});
+
+		console.log("Response: ", response);
+		$$invalidate(0, videoList = response.data.list);
+		p = response.data.response.body.page;
+		$$invalidate(2, per_page = response.data.response.body.page);
+		$$invalidate(3, total = response.data.response.body.total);
+		$$invalidate(1, videoPage = vp);
+		console.log(videoList);
+	}
 
 	async function deleteItem(id) {
 		console.log(id);
@@ -39685,9 +39927,25 @@ function instance($$self, $$props, $$invalidate) {
 	}
 
 	
-	const click_handler = i => handleClick(i);
-	const click_handler_1 = itemExist => deleteItem(itemExist.id);
-	return [videoList, deleteItem, handleClick, click_handler, click_handler_1];
+	const click_handler = () => getVideos(videoPage - 1);
+	const click_handler_1 = () => getVideos(videoPage + 1);
+	const click_handler_2 = i => handleClick(i);
+	const click_handler_3 = itemExist => deleteItem(itemExist.id);
+
+	return [
+		videoList,
+		videoPage,
+		per_page,
+		total,
+		getVideos,
+		deleteItem,
+		handleClick,
+		p,
+		click_handler,
+		click_handler_1,
+		click_handler_2,
+		click_handler_3
+	];
 }
 
 class Import extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__["SvelteComponent"] {
@@ -39698,6 +39956,22 @@ class Import extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__["SvelteCompone
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Import);
+
+/***/ }),
+
+/***/ "./resources/js/components/stores.js":
+/*!*******************************************!*\
+  !*** ./resources/js/components/stores.js ***!
+  \*******************************************/
+/*! exports provided: vList */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "vList", function() { return vList; });
+/* harmony import */ var svelte_store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/store */ "./node_modules/svelte/store/index.mjs");
+
+var vList = Object(svelte_store__WEBPACK_IMPORTED_MODULE_0__["writable"])([]);
 
 /***/ }),
 

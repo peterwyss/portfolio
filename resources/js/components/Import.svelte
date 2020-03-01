@@ -1,8 +1,11 @@
 <script>
+import {onMount} from 'svelte';
+import {vList} from './stores.js'
+
 /*TODO
 *
 * Buttonelement entfernen
-* removeChild(child) child = button
+* removeChild(child) child = buttons
 *
 *
 *
@@ -10,8 +13,35 @@
 
 
 
-let buttonAttr = ""; 
-	var videoList = video_list;
+//let buttonAttr = ""; 
+var videoList = [];
+var videoPage = 1;
+var p = 0;
+var per_page = 0;
+var total = 0;
+
+onMount( () => {
+	getVideos(videoPage);
+});
+
+
+async function getVideos(vp){
+	console.log("VP: " , vp);
+	const response = await axios(
+     {
+         url: '/admin/video/create/' +vp,
+         method: 'GET'
+     }
+ )
+  console.log("Response: " ,response);
+  videoList = response.data.list;
+  p = response.data.response.body.page;
+  per_page = response.data.response.body.page;
+  total = response.data.response.body.total;
+  videoPage = vp;
+  console.log(videoList); 
+}
+
 
 async function deleteItem(id){
 	console.log(id);
@@ -64,7 +94,14 @@ async function deleteItem(id){
 			<div class="col-md-8">
 				<div class="card">
 					<div class="card-header">Import Video</div>
+
 					<div class="card-body">
+					{#if videoPage > 1}
+					  <button class="btn btn-primary"  on:click|preventDefault={() => getVideos(videoPage -1)} >prev</button>
+					{/if} 
+					{#if videoPage * per_page < total}
+					  <button class="btn btn-primary" on:click|preventDefault={() => getVideos(videoPage +1 )} >next</button>
+					{/if}
 					
 						{#each videoList as item, i }
 						<form >

@@ -3,7 +3,6 @@
 @section('content')
 
 <script>
-    var video_list = @json($video_list);
     let _TOKEN = "{{ csrf_token() }}";
 
 </script>
@@ -21,12 +20,14 @@
                 <div id="testForm" />
   
                 <p>  
+                {{--    
                 @if ($response['body']['page'] > 1 )
                     <a href="{{asset('/admin/video/create/' . ($response['body']['page'] -1) )}}">prev</a>
                 @endif                
                 @if ($response['body']['page'] * $response['body']['per_page'] < $response['body']['total'])
                     <a href="{{asset('/admin/video/create/' . ($response['body']['page'] +1) )}}">next</a>
                 @endif
+                --}}
                 </p>
 
                 

@@ -29,6 +29,10 @@ Route::patch('admin/photo/update', 'PhotoController@update');
 Route::delete('/admin/photo/delete/{id}', 'PhotoController@destroy');
 
 Route::get('/admin/video/create/{page}', 'VideoController@create')->name('admin.video.create');
+Route::get('/admin/video/create/', function(){
+    return view('admin/video/create');
+});
+
 Route::post('/admin/video/store', 'VideoController@store');
 Route::get('/admin/video/edit/', 'VideoController@edit')->name('admin.video.edit');
 Route::post('admin/video/update', 'VideoController@update');

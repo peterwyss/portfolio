@@ -76,8 +76,10 @@ class VideoController extends Controller
             array_push($video_list,$item);
             
         }
-
-        return view('/admin/video/create', compact('response', 'video_list'));
+        return response()->json([
+            'list' => $video_list,
+            'response' => $response
+        ]);
     }
 
     /**
