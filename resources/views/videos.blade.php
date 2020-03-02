@@ -50,11 +50,10 @@ document.write(w);
                                     @if ($video->page == 1)
 
                                             <div class="carousel-item {{$loop->first ? 'active' : ''}} responsive-video">
-                                        
-                                                <iframe src="https://player.vimeo.com/video/{{$video->video_id}}"
-                                                      frameborder="0"  allow="autoplay" portrait="false";                                                      fullscreen" allowfullscreen ></iframe>
+                                                <iframe class="d-block w-100" src="https://player.vimeo.com/video/{{$video->video_id}}"
+                                                      frameborder="0"  allow="autoplay" portrait="false"; fullscreen" allowfullscreen ></iframe>
                                                 <div class="carousel-caption d-none d-md-block  mb-4" >
-                                                    <p>{{$video->description}} {{$video->video_id}}</p>
+                                                    <p>{!!$video->description!!}</p>
                                                 </div>
                                             </div> <!-- item -->
 

@@ -11409,3 +11409,16 @@ a.text-dark:focus {
   height: 100%;
 }
 
+.carousel-caption {
+  position: fixed !important;
+  left: 0;
+  right: 0;
+  z-index: 20000;
+}
+
+.carousel-inner {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+

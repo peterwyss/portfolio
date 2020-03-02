@@ -67,7 +67,7 @@ async function deleteItem(item){
 <div class="card card-body">
 <form >
 <input type="text" bind:value="{item.name}" /> 
-<input type="text" bind:value="{item.description}" />
+<textarea bind:value="{item.description}" />
 <input type="number" bind:value="{item.position}" />
 <input type="number" bind:value="{item.page}" /> 
 <button class="btn btn-primary" on:click|preventDefault={() => saveChange(item)}>Save</button> 

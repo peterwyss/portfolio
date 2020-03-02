@@ -39151,13 +39151,13 @@ function create_each_block(ctx) {
 	let form;
 	let input0;
 	let t1;
-	let input1;
+	let textarea;
 	let t2;
+	let input1;
+	let input1_updating = false;
+	let t3;
 	let input2;
 	let input2_updating = false;
-	let t3;
-	let input3;
-	let input3_updating = false;
 	let t4;
 	let button0;
 	let t6;
@@ -39170,18 +39170,18 @@ function create_each_block(ctx) {
 		/*input0_input_handler*/ ctx[1].call(input0, /*item*/ ctx[7]);
 	}
 
+	function textarea_input_handler() {
+		/*textarea_input_handler*/ ctx[2].call(textarea, /*item*/ ctx[7]);
+	}
+
 	function input1_input_handler() {
-		/*input1_input_handler*/ ctx[2].call(input1, /*item*/ ctx[7]);
+		input1_updating = true;
+		/*input1_input_handler*/ ctx[3].call(input1, /*item*/ ctx[7]);
 	}
 
 	function input2_input_handler() {
 		input2_updating = true;
-		/*input2_input_handler*/ ctx[3].call(input2, /*item*/ ctx[7]);
-	}
-
-	function input3_input_handler() {
-		input3_updating = true;
-		/*input3_input_handler*/ ctx[4].call(input3, /*item*/ ctx[7]);
+		/*input2_input_handler*/ ctx[4].call(input2, /*item*/ ctx[7]);
 	}
 
 	function click_handler(...args) {
@@ -39201,11 +39201,11 @@ function create_each_block(ctx) {
 			form = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("form");
 			input0 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
 			t1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
-			input1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
+			textarea = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("textarea");
 			t2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
-			input2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
+			input1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
 			t3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
-			input3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
+			input2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("input");
 			t4 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			button0 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("button");
 			button0.textContent = "Save";
@@ -39222,9 +39222,8 @@ function create_each_block(ctx) {
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(img, "aria-expanded", "false");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(img, "aria-controls", "collapseExample");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input0, "type", "text");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input1, "type", "text");
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input1, "type", "number");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input2, "type", "number");
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(input3, "type", "number");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button0, "class", "btn btn-primary");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(button1, "class", "btn btn-primary");
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div0, "class", "card card-body");
@@ -39233,9 +39232,9 @@ function create_each_block(ctx) {
 
 			dispose = [
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(input0, "input", input0_input_handler),
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(textarea, "input", textarea_input_handler),
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(input1, "input", input1_input_handler),
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(input2, "input", input2_input_handler),
-				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(input3, "input", input3_input_handler),
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(button0, "click", Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["prevent_default"])(click_handler)),
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(button1, "click", Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["prevent_default"])(click_handler_1))
 			];
@@ -39249,14 +39248,14 @@ function create_each_block(ctx) {
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, input0);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["set_input_value"])(input0, /*item*/ ctx[7].name);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t1);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, input1);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["set_input_value"])(input1, /*item*/ ctx[7].description);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, textarea);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["set_input_value"])(textarea, /*item*/ ctx[7].description);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t2);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, input2);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["set_input_value"])(input2, /*item*/ ctx[7].position);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, input1);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["set_input_value"])(input1, /*item*/ ctx[7].position);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t3);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, input3);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["set_input_value"])(input3, /*item*/ ctx[7].page);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, input2);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["set_input_value"])(input2, /*item*/ ctx[7].page);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t4);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, button0);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(form, t6);
@@ -39282,21 +39281,21 @@ function create_each_block(ctx) {
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["set_input_value"])(input0, /*item*/ ctx[7].name);
 			}
 
-			if (dirty & /*video_list*/ 1 && input1.value !== /*item*/ ctx[7].description) {
-				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["set_input_value"])(input1, /*item*/ ctx[7].description);
+			if (dirty & /*video_list*/ 1) {
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["set_input_value"])(textarea, /*item*/ ctx[7].description);
 			}
 
+			if (!input1_updating && dirty & /*video_list*/ 1) {
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["set_input_value"])(input1, /*item*/ ctx[7].position);
+			}
+
+			input1_updating = false;
+
 			if (!input2_updating && dirty & /*video_list*/ 1) {
-				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["set_input_value"])(input2, /*item*/ ctx[7].position);
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["set_input_value"])(input2, /*item*/ ctx[7].page);
 			}
 
 			input2_updating = false;
-
-			if (!input3_updating && dirty & /*video_list*/ 1) {
-				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["set_input_value"])(input3, /*item*/ ctx[7].page);
-			}
-
-			input3_updating = false;
 
 			if (dirty & /*video_list*/ 1 && div1_id_value !== (div1_id_value = "collapseExample_" + /*item*/ ctx[7].id)) {
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["attr"])(div1, "id", div1_id_value);
@@ -39415,17 +39414,17 @@ function instance($$self, $$props, $$invalidate) {
 		$$invalidate(0, video_list);
 	}
 
-	function input1_input_handler(item) {
+	function textarea_input_handler(item) {
 		item.description = this.value;
 		$$invalidate(0, video_list);
 	}
 
-	function input2_input_handler(item) {
+	function input1_input_handler(item) {
 		item.position = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["to_number"])(this.value);
 		$$invalidate(0, video_list);
 	}
 
-	function input3_input_handler(item) {
+	function input2_input_handler(item) {
 		item.page = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["to_number"])(this.value);
 		$$invalidate(0, video_list);
 	}
@@ -39436,9 +39435,9 @@ function instance($$self, $$props, $$invalidate) {
 	return [
 		video_list,
 		input0_input_handler,
+		textarea_input_handler,
 		input1_input_handler,
 		input2_input_handler,
-		input3_input_handler,
 		click_handler,
 		click_handler_1
 	];
